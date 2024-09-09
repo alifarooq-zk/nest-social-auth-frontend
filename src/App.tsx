@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import { FaGoogle } from "react-icons/fa";
+import { FaGoogle, FaGithub, FaFacebook } from "react-icons/fa";
 
-const BACKEND = "http://localhost:3000";
+const BACKEND = import.meta.env.VITE_BACKEND;
 
 type Profile = {
   first_name: string;
@@ -16,6 +16,7 @@ function App() {
   const search = window.location.search;
   const params = new URLSearchParams(search);
   const token = params.get("accessToken");
+  console.log(BACKEND);
 
   const [userProfile, setUserProfile] = useState<Profile>({} as Profile);
 
@@ -31,15 +32,31 @@ function App() {
 
   return (
     <main>
-      <div className="bg-red-500 p-10 drop-shadow-md flex gap-3 items-center justify-around">
+      <div className="bg-gray-600 p-10 drop-shadow-md flex gap-3 items-center justify-around">
         <h1 className=" text-white text-2xl ">Nest JS Social Login</h1>
-        <a
-          href={`${BACKEND}/auth/google/login`}
-          className="flex items-center gap-2 bg-blue-400 p-2 rounded"
-        >
-          <FaGoogle />
-          <span>Login with Google</span>
-        </a>
+        <div className="flex gap-2">
+          <a
+            href={`${BACKEND}/auth/google/login`}
+            className="flex items-center gap-2 bg-blue-400 p-2 rounded"
+          >
+            <FaGoogle />
+            <span>Login with Google</span>
+          </a>
+          <a
+            href={`${BACKEND}/auth/github/login`}
+            className="flex items-center gap-2 bg-blue-400 p-2 rounded"
+          >
+            <FaGithub />
+            <span>Login with Github</span>
+          </a>
+          <a
+            href={`${BACKEND}/auth/facebook/login`}
+            className="flex items-center gap-2 bg-blue-400 p-2 rounded"
+          >
+            <FaFacebook />
+            <span>Login with Facebook</span>
+          </a>
+        </div>
       </div>
       {Object.keys(userProfile).length > 0 ? (
         <div className="max-w-sm bg-white shadow-lg rounded-lg overflow-hidden my-4 mx-4">
